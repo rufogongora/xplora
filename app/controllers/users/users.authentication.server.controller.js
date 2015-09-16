@@ -74,7 +74,8 @@ exports.signin = function(req, res, next) {
  */
 exports.signout = function(req, res) {
 	req.logout();
-	res.redirect('/');
+	res.json({success : true});
+	/*res.redirect('/');*/
 };
 
 /**
