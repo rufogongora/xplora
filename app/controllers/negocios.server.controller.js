@@ -14,6 +14,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var negocio = new Negocio(req.body);
+	negocio.user = req.user;
 
 	negocio.save(function(err) {
 		if (err) {
