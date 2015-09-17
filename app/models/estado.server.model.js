@@ -21,7 +21,7 @@ var EstadoSchema = new Schema({
 		default: Date.now
 	},
 	ciudades : [{
-		nombre : String
+		nombre : String,
 		required: 'Please fill Estado name',
 		trim: true
 	}],
