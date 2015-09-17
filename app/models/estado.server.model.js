@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
  * Estado Schema
  */
 var EstadoSchema = new Schema({
-	name: {
+	nombre: {
 		type: String,
 		default: '',
 		required: 'Please fill Estado name',
@@ -21,7 +21,9 @@ var EstadoSchema = new Schema({
 		default: Date.now
 	},
 	ciudades : [{
-		name : String
+		nombre : String
+		required: 'Please fill Estado name',
+		trim: true
 	}],
 	user: {
 		type: Schema.ObjectId,
