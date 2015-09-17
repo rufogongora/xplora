@@ -21,9 +21,7 @@ var EstadoSchema = new Schema({
 		default: Date.now
 	},
 	ciudades : [{
-		nombre : String,
-		required: 'Please fill Estado name',
-		trim: true
+		nombre : String
 	}],
 	user: {
 		type: Schema.ObjectId,
