@@ -43,7 +43,7 @@ var NegocioSchema = new Schema({
 		required : 'La ciudad es requerida',
 		default : 'Rio Bravo'
 	},
-	Direccion : {
+	direccion : {
 		type : String,
 		required : 'La direccion es requerido',
 		default : 'Roble #213'
