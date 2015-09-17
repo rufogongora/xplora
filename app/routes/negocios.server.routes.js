@@ -6,7 +6,8 @@ module.exports = function(app) {
 
 	// Negocios Routes
 	app.route('/negocios')
-		.post(users.requiresLogin, negocios.create);
+		.post(users.requiresLogin, negocios.create)
+		.get(users.requiresLogin, negocios.getForUser);
 
 	app.route('/negocios/:categoryId')
 		.get(negocios.list);
