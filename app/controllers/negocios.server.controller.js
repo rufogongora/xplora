@@ -163,6 +163,19 @@ exports.negocioByID = function(req, res, next, id) {
 	});
 };
 
+
+exports.getForUser = function(req, res){
+	var user = req.user;
+	Negocio.find({user : req.user.id}).exec(function (err, negocios){
+		if (err)
+			return res.status(400).send('That user don\'t exist nigga');
+		else
+			res.jsonp(negocios);
+
+	});
+
+};
+
 /**
  * Negocio authorization middleware
  */
