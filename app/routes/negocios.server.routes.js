@@ -13,7 +13,8 @@ module.exports = function(app) {
 		.get(negocios.list);
 
 	app.route('/negocios/:categoryId/:negocioId')
-		.get(negocios.read);
+		.get(negocios.read)
+		.put(users.requiresLogin, negocios.hasAuthorization, negocios.update);
 
 	app.route('/negocios/like')
 		.post(users.requiresLogin, negocios.like, users.like);

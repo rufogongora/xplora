@@ -42,7 +42,7 @@ exports.update = function(req, res) {
 	var negocio = req.negocio ;
 
 	negocio = _.extend(negocio , req.body);
-
+	
 	negocio.save(function(err) {
 		if (err) {
 			return res.status(400).send({
