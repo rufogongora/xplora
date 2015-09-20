@@ -132,16 +132,6 @@ exports.like = function(req, res, next){
 
 		});
 
-/*		negocio.save(function(err) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
-				next();
-			}
-		});*/
-
 	}
 
 
