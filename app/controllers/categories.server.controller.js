@@ -99,6 +99,7 @@ exports.delete = function(req, res) {
  * List of Categories
  */
 exports.list = function(req, res) {
+	
     Category.find().exec(function(err, categories) {
         if (err) {
             return res.status(400).send({

@@ -14,9 +14,8 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var negocio = new Negocio(req.body);
-	console.log(req.user);
 	negocio.user = req.user;
-
+	negocio.approved = false;
 	negocio.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -75,17 +74,10 @@ exports.delete = function(req, res) {
  * List of Negocios
  */
 exports.list = function(req, res) { 
-/*	Negocio.find().sort('-created').populate('user', 'displayName').exec(function(err, negocios) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(negocios);
-		}
-	});*/
 
-	Negocio.find({categoria:req.params.categoryId}).exec(function (err, negocios) {
+	if (!req.headers.ciudad || !req.headers.estado)
+		res.status(400).send('No hay ninguna ciudad selecionada');
+	Negocio.find({categoria:req.params.categoryId, ciudad : req.headers.ciudad, approved : true}).exec(function (err, negocios) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -135,12 +127,37 @@ exports.like = function(req, res, next){
 	}
 
 
+};
 
 
+exports.negociosPendientes = function(req, res){
+	Negocio.count({approved:false}).exec(function (err, c){
+		if (err){
+			console.log(err);
+			res.jsonp(0);
+		}
+		else{
+			console.log(c);
+			res.jsonp(c);
+		}
+	});
+};
 
 
+exports.unapproved = function(req, res){
+	Negocio.find({approved:false}).exec(function (err, result){
+		if (err){
+			return res.status(400).send({
+				message : errorHandler.getErrorMessage(err)
+			});
+		} else{
+			res.jsonp(result);
+		}
+
+	});
 
 };
+
 /**
  * Negocio middleware
  */
@@ -158,13 +175,28 @@ exports.getForUser = function(req, res){
 	var user = req.user;
 	Negocio.find({user : req.user.id}).exec(function (err, negocios){
 		if (err)
-			return res.status(400).send('That user don\'t exist nigga');
+			return res.status(400).send('That user don\'t exist');
 		else
 			res.jsonp(negocios);
 
 	});
 
 };
+
+
+exports.approve = function(req, res){
+	
+	console.log(req.negocio);
+
+	Negocio.update(req.negocio, { $set : {approved:true}}).exec(function (err, result){
+
+			if (err)
+				return res.status(400).send('Something wen\'t wrong');
+			else
+				res.jsonp(result);
+	});
+};
+
 
 /**
  * Negocio authorization middleware

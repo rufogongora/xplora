@@ -79,6 +79,17 @@ var NegocioSchema = new Schema({
 	descripcion : {
 		type : String,
 		default : 'Esta es la descripcion'
+	},
+	approved : {
+		type : Boolean,
+		default : false
+	},
+	promos : {
+		type : [{
+			type : Schema.ObjectId,
+			ref : 'Promo'
+		}],
+		default : []
 	}
 });
 

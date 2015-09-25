@@ -12,8 +12,15 @@ module.exports = function(app) {
 	app.route('/negocios/:categoryId')
 		.get(negocios.list);
 
+	app.route('/negocios-pendientes')
+		.get(negocios.negociosPendientes);
+
+	app.route('/negocios-unapproved')
+		.get(negocios.unapproved);
+
 	app.route('/negocios/:categoryId/:negocioId')
 		.get(negocios.read)
+		.post(negocios.approve)
 		.put(users.requiresLogin, negocios.hasAuthorization, negocios.update);
 
 	app.route('/negocios/like')
